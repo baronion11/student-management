@@ -53,7 +53,7 @@ public class StudentViewController {
     @PostMapping("/students/save")
     public String saveStudent(@ModelAttribute("student") Student student) {
         studentService.save(student);
-        return "redirect:/students";
+        return "redirect:/students/" + student.getId();
     }
 
     @GetMapping("/students/delete/{id}")
