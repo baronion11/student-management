@@ -18,17 +18,13 @@ public class StudentViewController {
     @GetMapping("/students")
     public String listStudents(@RequestParam(required = false) String keyword, Model model) {
         List<Student> students;
-        if (keyword != null) {
-            String cleanKeyword = keyword.trim();
 
-            if (!cleanKeyword.isEmpty()) {
-                students = studentService.searchByName(cleanKeyword);
-            } else {
-                students = studentService.getAll();
-            }
+        if (keyword != null && !keyword.trim().isEmpty()) {
+            students = studentService.searchByName(keyword.trim());
         } else {
             students = studentService.getAll();
         }
+
         model.addAttribute("students", students);
         model.addAttribute("keyword", keyword);
         return "index";
