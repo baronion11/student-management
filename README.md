@@ -2,11 +2,106 @@
 | MSSV | Họ và tên |
 | :--- | :--- |
 | **2310271** | Trương Nguyễn Gia Bảo | 
+| **2312419** | Hoàng Hữu Nhân | 
 
 # Deploy Web service
 Ứng dụng đã được triển khai trực tuyến tại:
 **[https://student-management-5syw.onrender.com/students](https://student-management-5syw.onrender.com/students)**
 > **Lưu ý:** Do sử dụng Render Free Tier, dịch vụ sẽ tự động "đi ngủ" sau 15 phút không hoạt động. Thời gian khởi động lại (Cold Start) có thể mất từ 1-5 phút.
+
+# Hướng dẫn chạy dự án
+
+
+
+
+# Lab 1: Khởi Tạo & Kiến Trúc Hệ Thống
+## Bài tập 
+
+1.  **Dữ liệu lớn**: Hãy thử thêm ít nhất **10 sinh viên** nữa.
+    
+**Thực hiện:** Thêm **10 sinh viên** mới.
+
+```sql
+INSERT INTO students (id, name, email, age) VALUES (3, 'Le Van C', 'levanc@example.com', 19);
+INSERT INTO students (id, name, email, age) VALUES (4, 'Pham Thi D', 'phamthid@example.com', 20);
+INSERT INTO students (id, name, email, age) VALUES (5, 'Hoang Van E', 'hoangvane@example.com', 21);
+INSERT INTO students (id, name, email, age) VALUES (6, 'Vo Thi F', 'vothif@example.com', 22);
+INSERT INTO students (id, name, email, age) VALUES (7, 'Do Van G', 'dovang@example.com', 18);
+INSERT INTO students (id, name, email, age) VALUES (8, 'Bui Thi H', 'buithih@example.com', 19);
+INSERT INTO students (id, name, email, age) VALUES (9, 'Nguyen Van I', 'nguyenvani@example.com', 20);
+INSERT INTO students (id, name, email, age) VALUES (10, 'Tran Thi K', 'tranthik@example.com', 21);
+INSERT INTO students (id, name, email, age) VALUES (11, 'Dang Van L', 'dangvanl@example.com', 22);
+INSERT INTO students (id, name, email, age) VALUES (12, 'Mai Thi M', 'maithim@example.com', 20);
+```
+
+
+2.  **Ràng buộc Khóa Chính (Primary Key)**:
+* Cố tình Insert một sinh viên có `id` trùng với một người đã có sẵn.
+    ```sql
+    -- Thêm một sinh viên có id trùng với sinh viên đã tồn tại
+    INSERT INTO students (id, name, email, age) VALUES (1, 'Nguyen Van A', 'vana@example.com', 20);
+    ```
+    Kết quả:
+    <img width="1872" height="491" alt="image" src="./screenshot/detail.png" />
+
+*  Quan sát thông báo lỗi: `UNIQUE constraint failed`. Tại sao Database lại chặn thao tác này?
+
+    Vì thuộc tính id được cấu hình thành PRIMARY KEY của một bản ghi trong bảng students, do đó id là UNIQUE và NOT NULL. Việc thêm một student có id trừng lặp với một trong các id đã có trong bảng sẽ vi phạm constraints PRIMARY KEY của thuộc tính nên bị database chặn lại.
+
+
+3.  **Toàn vẹn dữ liệu (Constraints)**:
+*   Thử Insert một sinh viên nhưng bỏ trống cột `name` (để NULL).
+    ``` sql
+    - Thêm một sinh viên có thuộc tính name là NULL
+    INSERT INTO students (id, name, email, age) VALUES (18, NULL, 'nothing@example.com', 20);
+    ```
+    *   Database có báo lỗi không? Từ đó suy nghĩ xem sự thiếu chặt chẽ này ảnh hưởng gì khi code Java đọc dữ liệu lên?
+       
+    Database báo insert dữ liệu thành công:
+    ```
+        Execution finished without errors.
+        Result: query executed successfully. Took 0ms
+    ```
+        
+* Khi Java đọc dữ liệu, nó sẽ đọc được bản ghi có thuộc tính là NULL và có nguy cơ gây lỗi khi chạy app :
+    * NPE (NullPointerException) gây crash request hoặc Internal Server Error (code 500)
+    * Lỗi logic khi xử lí NULL trên frontend gây thiệt hại về nghiệp vụ
+
+4.  **Cấu hình Hibernate: Tại sao mỗi lần tắt ứng dụng và chạy lại, dữ liệu cũ trong Database lại bị mất hết?**
+
+* Nguyên nhân nằm ở dòng cấu hình sau trong file application.properties:
+```
+  spring.jpa.hibernate.ddl-auto=create
+```
+* Với giá trị create, mỗi khi chạy ứng dụng, Hibernate sẽ thực hiện các bước:
+  * Kiểm tra xem file student.db (SQLite) có các bảng dữ liệu chưa.
+  * Xóa sạch (Drop) toàn bộ các bảng đó nếu chúng đã tồn tại.
+  * Tạo mới (Create) lại các bảng trống dựa trên các class @Entity.
+  * Vì vậy, mọi dữ liệu vừa nhập ở lần chạy trước đều bị xóa.
+
+# Lab 2: Xây Dựng Backend REST API
+
+## Kiểm tra API với trình duyệt
+1. **API lấy danh sách sinh viên**: GET http://localhost:8080/api/students
+<img width="730" height="628" alt="image" src="https://github.com/user-attachments/assets/978df5c3-794f-4e26-a7e2-3f8ebb35c2eb" />
+
+2. **API lấy chi tiết sinh viên**: GET http://localhost:8080/api/students/2
+<img width="726" height="297" alt="image" src="https://github.com/user-attachments/assets/f08b51cf-f7b2-4d40-a794-090268557ecb" />
+
+3. **Lấy chi tiết sinh viên không tồn tại** GET http://localhost:8080/students/99
+<img width="738" height="276" alt="image" src="https://github.com/user-attachments/assets/56886541-0b9b-4ad6-b1b2-8fa3c046e3af" />
+
+
+# Lab 3: Xây dựng Frontend (SSR)
+**Giao diện sẽ hiển thị danh sách các sinh viên và tô đỏ các bảng ghi sinh viên có tuổi < 18 (http://localhost:8080/students)**
+
+<img width="1895" height="996" alt="image" src="https://github.com/user-attachments/assets/a140adb9-de5e-4487-85b1-8f53174bcc4d" />
+
+**Chức năng tìm kiếm:** 
+
+<img width="1909" height="349" alt="image" src="https://github.com/user-attachments/assets/662942b2-a131-44c5-9102-9b7bc2c6173b" />
+
+
 # Lab 4: Hoàn thiện sản phẩm
 **Module 1: Danh sách sinh viên**
 * Đường dẫn: {URL}/students
