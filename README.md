@@ -42,7 +42,7 @@ INSERT INTO students (id, name, email, age) VALUES (12, 'Mai Thi M', 'maithim@ex
     INSERT INTO students (id, name, email, age) VALUES (1, 'Nguyen Van A', 'vana@example.com', 20);
     ```
     Kết quả:
-    <img width="1872" height="491" alt="image" src="./screenshot/lab1_1" />
+    <img width="1872" height="491" alt="image" src="./screenshot/lab11" />
 
 *  Quan sát thông báo lỗi: `UNIQUE constraint failed`. Tại sao Database lại chặn thao tác này?
 
