@@ -95,11 +95,11 @@ INSERT INTO students (id, name, email, age) VALUES (12, 'Mai Thi M', 'maithim@ex
 # Lab 3: Xây dựng Frontend (SSR)
 **Giao diện sẽ hiển thị danh sách các sinh viên và tô đỏ các bảng ghi sinh viên có tuổi < 18 (http://localhost:8080/students)**
 
-<img width="1895" height="996" alt="image" src="https://github.com/user-attachments/assets/a140adb9-de5e-4487-85b1-8f53174bcc4d" />
+<img width="1872" height="491" alt="image" src="./screenshot/lab31.png" />
 
 **Chức năng tìm kiếm:** 
 
-<img width="1909" height="349" alt="image" src="https://github.com/user-attachments/assets/662942b2-a131-44c5-9102-9b7bc2c6173b" />
+<img width="1872" height="491" alt="image" src="./screenshot/lab32.png" />
 
 
 # Lab 4: Hoàn thiện sản phẩm
