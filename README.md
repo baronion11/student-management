@@ -42,7 +42,7 @@ INSERT INTO students (id, name, email, age) VALUES (12, 'Mai Thi M', 'maithim@ex
     INSERT INTO students (id, name, email, age) VALUES (1, 'Nguyen Van A', 'vana@example.com', 20);
     ```
     Kết quả:
-    <img width="1872" height="491" alt="image" src="./screenshot/detail.png" />
+    <img width="1872" height="491" alt="image" src="./screenshot/lab1_1" />
 
 *  Quan sát thông báo lỗi: `UNIQUE constraint failed`. Tại sao Database lại chặn thao tác này?
 
@@ -53,7 +53,7 @@ INSERT INTO students (id, name, email, age) VALUES (12, 'Mai Thi M', 'maithim@ex
 *   Thử Insert một sinh viên nhưng bỏ trống cột `name` (để NULL).
     ``` sql
     - Thêm một sinh viên có thuộc tính name là NULL
-    INSERT INTO students (id, name, email, age) VALUES (18, NULL, 'nothing@example.com', 20);
+    INSERT INTO students (id, name, email, age) VALUES (44, NULL, 'nonething@example.com', 20);
     ```
     *   Database có báo lỗi không? Từ đó suy nghĩ xem sự thiếu chặt chẽ này ảnh hưởng gì khi code Java đọc dữ liệu lên?
        
@@ -83,13 +83,13 @@ INSERT INTO students (id, name, email, age) VALUES (12, 'Mai Thi M', 'maithim@ex
 
 ## Kiểm tra API với trình duyệt
 1. **API lấy danh sách sinh viên**: GET http://localhost:8080/api/students
-<img width="730" height="628" alt="image" src="https://github.com/user-attachments/assets/978df5c3-794f-4e26-a7e2-3f8ebb35c2eb" />
+<img width="1872" height="491" alt="image" src="./screenshot/lab2_1" />
 
-2. **API lấy chi tiết sinh viên**: GET http://localhost:8080/api/students/2
-<img width="726" height="297" alt="image" src="https://github.com/user-attachments/assets/f08b51cf-f7b2-4d40-a794-090268557ecb" />
+2. **API lấy chi tiết sinh viên**: GET http://localhost:8080/api/students/1
+<img width="1872" height="491" alt="image" src="./screenshot/lab2_2" />
 
 3. **Lấy chi tiết sinh viên không tồn tại** GET http://localhost:8080/students/99
-<img width="738" height="276" alt="image" src="https://github.com/user-attachments/assets/56886541-0b9b-4ad6-b1b2-8fa3c046e3af" />
+<img width="1872" height="491" alt="image" src="./screenshot/lab2_3" />
 
 
 # Lab 3: Xây dựng Frontend (SSR)
