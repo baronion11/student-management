@@ -11,6 +11,26 @@
 
 # Hướng dẫn chạy dự án
 
+1. Chạy Docker
+```sql
+docker run -d --name cnpmnc_postgre ^
+  -e POSTGRES_USER=postgres ^
+  -e POSTGRES_PASSWORD=123456 ^
+  -e POSTGRES_DB=student_management ^
+  -p 5433:5432 ^
+  postgres:15-alpine
+```
+
+2. Tạo file .env
+
+3. Chỉnh file  application.properties thêm các biến môi trường
+<img width="1872" height="491" alt="image" src="./screenshot/lab01.png" />
+
+4. Chạy lệnh 
+```sql
+mvnw clean package  
+mvnw.cmd spring-boot:run
+```
 
 
 
