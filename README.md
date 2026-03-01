@@ -24,7 +24,7 @@ docker run -d --name cnpmnc_postgre ^
 2. Tạo file .env
 
 3. Chỉnh file  application.properties thêm các biến môi trường
-<img width="1872" height="491" alt="image" src="./screenshot/lab01.png" />
+<img width="1872" height="491" alt="image" src="./screenshot/lab1111.png" />
 
 4. Chạy lệnh 
 ```sql
