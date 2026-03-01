@@ -63,21 +63,21 @@ INSERT INTO students (id, name, email, age) VALUES (12, 'Mai Thi M', 'maithim@ex
     ```
     *   Database có báo lỗi không? Từ đó suy nghĩ xem sự thiếu chặt chẽ này ảnh hưởng gì khi code Java đọc dữ liệu lên?
        
-    Database có báo lỗi không?
+    * Database có báo lỗi không?
 
-      Database không báo lỗi
+      * Database không báo lỗi
 
-    Sự thiếu chặt chẽ này ảnh hưởng gì khi code Java đọc dữ liệu lên?
+    * Sự thiếu chặt chẽ này ảnh hưởng gì khi code Java đọc dữ liệu lên?
 
-    Dữ liệu name = NULL dễ gây:
+    * Dữ liệu name = NULL dễ gây:
 
-      NullPointerException (NPE) nếu code xử lý chuỗi mà không check null (trim(), toLowerCase()…),
+      * NullPointerException (NPE) nếu code xử lý chuỗi mà không check null (trim(), toLowerCase()…),
 
-      UI hiển thị trống tên (xấu UX, khó kiểm tra),
+      * UI hiển thị trống tên (xấu UX, khó kiểm tra),
 
-      Logic tìm kiếm theo tên có thể “lọt” hoặc cho kết quả thiếu nhất quán,
+      * Logic tìm kiếm theo tên có thể “lọt” hoặc cho kết quả thiếu nhất quán,
 
-      Dữ liệu rác (không đúng nghiệp vụ: sinh viên không thể không có tên).
+      * Dữ liệu rác (không đúng nghiệp vụ: sinh viên không thể không có tên).
     
       
 
