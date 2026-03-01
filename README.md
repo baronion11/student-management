@@ -46,13 +46,13 @@ INSERT INTO students (id, name, email, age) VALUES (12, 'Mai Thi M', 'maithim@ex
 
 *  Quan sát thông báo lỗi: `UNIQUE constraint failed`. Tại sao Database lại chặn thao tác này?
 
-  id được định nghĩa là PRIMARY KEY ⇒ bắt buộc UNIQUE và NOT NULL.
+  * id được định nghĩa là PRIMARY KEY ⇒ bắt buộc UNIQUE và NOT NULL.
 
-  Nếu cho phép trùng id, DB không còn đảm bảo “mỗi sinh viên có 1 định danh duy nhất”, dẫn tới:
+  * Nếu cho phép trùng id, DB không còn đảm bảo “mỗi sinh viên có 1 định danh duy nhất”, dẫn tới:
 
-    Lỗi logic khi truy vấn theo id (không biết lấy dòng nào),
+    * Lỗi logic khi truy vấn theo id (không biết lấy dòng nào),
 
-    Ảnh hưởng trực tiếp tới các thao tác CRUD sau này.
+    * Ảnh hưởng trực tiếp tới các thao tác CRUD sau này.
 
 
 3.  **Toàn vẹn dữ liệu (Constraints)**:
