@@ -46,7 +46,13 @@ INSERT INTO students (id, name, email, age) VALUES (12, 'Mai Thi M', 'maithim@ex
 
 *  Quan sát thông báo lỗi: `UNIQUE constraint failed`. Tại sao Database lại chặn thao tác này?
 
-    Vì thuộc tính id được cấu hình thành PRIMARY KEY của một bản ghi trong bảng students, do đó id là UNIQUE và NOT NULL. Việc thêm một student có id trừng lặp với một trong các id đã có trong bảng sẽ vi phạm constraints PRIMARY KEY của thuộc tính nên bị database chặn lại.
+  id được định nghĩa là PRIMARY KEY ⇒ bắt buộc UNIQUE và NOT NULL.
+
+  Nếu cho phép trùng id, DB không còn đảm bảo “mỗi sinh viên có 1 định danh duy nhất”, dẫn tới:
+
+    Lỗi logic khi truy vấn theo id (không biết lấy dòng nào),
+
+    Ảnh hưởng trực tiếp tới các thao tác CRUD sau này.
 
 
 3.  **Toàn vẹn dữ liệu (Constraints)**:
@@ -57,27 +63,34 @@ INSERT INTO students (id, name, email, age) VALUES (12, 'Mai Thi M', 'maithim@ex
     ```
     *   Database có báo lỗi không? Từ đó suy nghĩ xem sự thiếu chặt chẽ này ảnh hưởng gì khi code Java đọc dữ liệu lên?
        
-    Database báo insert dữ liệu thành công:
-    ```
-        Execution finished without errors.
-        Result: query executed successfully. Took 0ms
-    ```
-        
-* Khi Java đọc dữ liệu, nó sẽ đọc được bản ghi có thuộc tính là NULL và có nguy cơ gây lỗi khi chạy app :
-    * NPE (NullPointerException) gây crash request hoặc Internal Server Error (code 500)
-    * Lỗi logic khi xử lí NULL trên frontend gây thiệt hại về nghiệp vụ
+    Database có báo lỗi không?
+
+      Database không báo lỗi
+
+    Sự thiếu chặt chẽ này ảnh hưởng gì khi code Java đọc dữ liệu lên?
+
+    Dữ liệu name = NULL dễ gây:
+
+      NullPointerException (NPE) nếu code xử lý chuỗi mà không check null (trim(), toLowerCase()…),
+
+      UI hiển thị trống tên (xấu UX, khó kiểm tra),
+
+      Logic tìm kiếm theo tên có thể “lọt” hoặc cho kết quả thiếu nhất quán,
+
+      Dữ liệu rác (không đúng nghiệp vụ: sinh viên không thể không có tên).
+    
+      
 
 4.  **Cấu hình Hibernate: Tại sao mỗi lần tắt ứng dụng và chạy lại, dữ liệu cũ trong Database lại bị mất hết?**
 
-* Nguyên nhân nằm ở dòng cấu hình sau trong file application.properties:
+* Nguyên nhân do trong application.properties đang cấu hình:
 ```
   spring.jpa.hibernate.ddl-auto=create
 ```
-* Với giá trị create, mỗi khi chạy ứng dụng, Hibernate sẽ thực hiện các bước:
-  * Kiểm tra xem file student.db (SQLite) có các bảng dữ liệu chưa.
-  * Xóa sạch (Drop) toàn bộ các bảng đó nếu chúng đã tồn tại.
-  * Tạo mới (Create) lại các bảng trống dựa trên các class @Entity.
-  * Vì vậy, mọi dữ liệu vừa nhập ở lần chạy trước đều bị xóa.
+* Với ddl-auto=create khiến Hibernate mỗi lần chạy app sẽ:
+  * Drop (xóa) bảng cũ nếu có
+  * Create lại bảng mới theo @Entity → nên dữ liệu nhập trước đó bị mất sạch.
+
 
 # Lab 2: Xây Dựng Backend REST API
 
