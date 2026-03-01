@@ -32,6 +32,8 @@ mvnw clean package
 mvnw.cmd spring-boot:run
 ```
 
+Truy cập vào đường dẫn localhost:8080/students để xem kết quả
+
 
 
 # Lab 1: Khởi Tạo & Kiến Trúc Hệ Thống
