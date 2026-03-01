@@ -42,7 +42,7 @@ INSERT INTO students (id, name, email, age) VALUES (12, 'Mai Thi M', 'maithim@ex
     INSERT INTO students (id, name, email, age) VALUES (1, 'Nguyen Van A', 'vana@example.com', 20);
     ```
     Kết quả:
-    <img width="1872" height="491" alt="image" src="./screenshot/lab11" />
+    <img width="1872" height="491" alt="image" src="./screenshot/lab11.png" />
 
 *  Quan sát thông báo lỗi: `UNIQUE constraint failed`. Tại sao Database lại chặn thao tác này?
 
@@ -83,13 +83,13 @@ INSERT INTO students (id, name, email, age) VALUES (12, 'Mai Thi M', 'maithim@ex
 
 ## Kiểm tra API với trình duyệt
 1. **API lấy danh sách sinh viên**: GET http://localhost:8080/api/students
-<img width="1872" height="491" alt="image" src="./screenshot/lab2_1" />
+<img width="1872" height="491" alt="image" src="./screenshot/lab21.png" />
 
 2. **API lấy chi tiết sinh viên**: GET http://localhost:8080/api/students/1
-<img width="1872" height="491" alt="image" src="./screenshot/lab2_2" />
+<img width="1872" height="491" alt="image" src="./screenshot/lab22.png" />
 
 3. **Lấy chi tiết sinh viên không tồn tại** GET http://localhost:8080/students/99
-<img width="1872" height="491" alt="image" src="./screenshot/lab2_3" />
+<img width="1872" height="491" alt="image" src="./screenshot/lab23.png" />
 
 
 # Lab 3: Xây dựng Frontend (SSR)
